@@ -1,0 +1,333 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.list-container {
+  min-height: 100vh;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.user-email {
+  margin-right: 16px;
+  font-size: 14px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+
+  .header-text {
+    flex: 1;
+  }
+
+  .add-button {
+    margin-left: 16px;
+    height: 40px;
+
+    .mat-icon {
+      margin-right: 8px;
+    }
+  }
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+
+  .search-field {
+    flex: 1;
+    margin: 0;
+
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+  }
+
+  .clear-search-btn {
+    min-width: 40px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.no-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  color: rgba(0, 0, 0, 0.6);
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+  }
+
+  p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    text-align: center;
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+
+  p {
+    margin-top: 16px;
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  color: #f44336;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+  }
+
+  p {
+    margin-bottom: 24px;
+    text-align: center;
+  }
+}
+
+.items-container {
+  .items-list {
+    padding: 0;
+    margin: 0;
+
+    .list-item {
+      border-bottom: 1px solid #e0e0e0;
+      padding: 8px 16px;
+      min-height: 48px;
+
+      &.last-item {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background-color: #f5f5f5;
+        transition: background-color 0.2s ease;
+      }
+
+      .item-title {
+        font-size: 16px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 0.87);
+        margin-bottom: 2px;
+        line-height: 1.1;
+      }
+
+      .item-description {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.7);
+        line-height: 1.2;
+        margin: 1px 0;
+      }
+
+      .item-id {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.5);
+        font-weight: 500;
+        margin-top: 2px;
+      }
+
+      .item-actions {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+
+        button {
+          min-width: 48px;
+          width: 48px;
+          height: 48px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0;
+
+          mat-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+          }
+
+          &:hover {
+            transform: scale(1.05);
+            transition: transform 0.2s ease;
+          }
+        }
+      }
+
+      // Override Material's default list item layout
+      ::ng-deep {
+        .mat-mdc-list-item-content {
+          display: flex !important;
+          align-items: flex-start !important;
+          justify-content: space-between !important;
+          padding: 0 !important;
+          margin: 0 !important;
+        }
+
+        .mat-mdc-list-item-primary-text {
+          flex: 1 !important;
+          margin-right: 16px !important;
+          margin-bottom: 0 !important;
+        }
+
+        .mat-mdc-list-item-meta {
+          flex-shrink: 0 !important;
+        }
+
+        // Remove default Material spacing
+        .mat-mdc-list-item {
+          padding: 0 !important;
+          margin: 0 !important;
+        }
+
+        .mat-mdc-list-item-unscoped-content {
+          padding: 0 !important;
+          margin: 0 !important;
+        }
+
+        // Fix Material icon button centering
+        .mat-mdc-icon-button {
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          padding: 0 !important;
+
+          .mat-icon {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            margin: 0 !important;
+            overflow: visible !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  color: rgba(0, 0, 0, 0.6);
+
+  mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+  }
+
+  p {
+    margin-bottom: 24px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .header-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+
+    .add-button {
+      margin-left: 0;
+      align-self: flex-end;
+    }
+  }
+
+  .items-container {
+    .items-list {
+      .list-item {
+        padding: 6px 12px;
+        min-height: 44px;
+
+        .item-actions {
+          flex-direction: column;
+          gap: 2px;
+
+          button {
+            min-width: 44px;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+
+            mat-icon {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 18px;
+              width: 18px;
+              height: 18px;
+            }
+          }
+        }
+
+        ::ng-deep {
+          .mat-mdc-list-item-content {
+            flex-direction: column !important;
+            align-items: stretch !important;
+          }
+
+          .mat-mdc-list-item-primary-text {
+            margin-right: 0 !important;
+            margin-bottom: 8px !important;
+          }
+
+          .mat-mdc-list-item-meta {
+            align-self: flex-end !important;
+          }
+        }
+      }
+    }
+  }
+
+  .user-email {
+    display: none;
+  }
+}
