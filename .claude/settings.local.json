@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(npx @angular/cli@latest new:*)",
+      "Bash(npm cache clean:*)",
+      "Bash(sudo chown:*)",
+      "Bash(ng version)",
+      "Bash(ng build:*)",
+      "Bash(ng test:*)",
+      "Read(//Users/lokesh/Desktop/**)",
+      "Bash(npm run build:*)",
+      "Bash(git rm:*)",
+      "Bash(git reset:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
