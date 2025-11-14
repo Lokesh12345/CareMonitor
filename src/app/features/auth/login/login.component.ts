@@ -23,103 +23,52 @@ import { LoginCredentials } from '../../../core/interfaces/auth.interfaces';
     MatInputModule,
     MatButtonModule,
     MatProgressSpinnerModule
-  ],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  ]
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  loginForm: FormGroup;
-  private destroy$ = new Subject<void>();
 
-  // Observable selectors from store
-  isLoading$ = this.authStore.isLoading$;
-  error$ = this.authStore.error$;
-  isAuthenticated$ = this.authStore.isAuthenticated$;
+  loginForm: FormGroup;
+  isLoading = false;
+  private ngUnsubscribe = new Subject<void>();
 
   constructor(
-    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
     private router: Router,
     private authStore: AuthStore,
     private snackBar: MatSnackBar
-  ) {
-    this.loginForm = this.fb.group({
-      email: ['admin@caremonitor.com', [Validators.required, Validators.email]],
-      password: ['password123', [Validators.required, Validators.minLength(6)]]
+  ) { }
+
+  ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
     });
   }
 
-  ngOnInit() {
-    // Subscribe to authentication state changes
-    this.isAuthenticated$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(isAuthenticated => {
-        if (isAuthenticated) {
-          this.showSuccessMessage();
-          this.router.navigate(['/dashboard']);
-        }
-      });
-
-    // Subscribe to error changes
-    this.error$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(error => {
-        if (error) {
-          this.showErrorMessage(error);
-        }
-      });
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  onSubmit() {
+  onLogin(): void {
     if (this.loginForm.valid) {
-      const credentials: LoginCredentials = {
-        email: this.loginForm.value.email,
-        password: this.loginForm.value.password
-      };
-
-      // Clear any previous errors
-      this.authStore.clearError();
-
-      // Trigger login through the store
-      this.authStore.login(credentials);
-    } else {
-      this.markFormGroupTouched();
+      const credentials: LoginCredentials = this.loginForm.value;
+      this.isLoading = true;
+      this.authStore.login(credentials)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe({
+          next: () => {
+            this.router.navigate(['/']);
+            this.isLoading = false;
+          },
+          error: (error) => {
+            this.snackBar.open('Invalid credentials', 'Close', {
+              duration: 5000
+            });
+            this.isLoading = false;
+          }
+        });
     }
   }
 
-  private markFormGroupTouched() {
-    Object.keys(this.loginForm.controls).forEach(key => {
-      const control = this.loginForm.get(key);
-      control?.markAsTouched();
-    });
-  }
-
-  private showSuccessMessage() {
-    this.snackBar.open('Login successful!', 'Close', {
-      duration: 3000,
-      panelClass: ['success-snackbar']
-    });
-  }
-
-  private showErrorMessage(error: string) {
-    this.snackBar.open(error, 'Close', {
-      duration: 5000,
-      panelClass: ['error-snackbar']
-    });
-  }
-
-  // Helper method to show demo credentials
-  fillDemoCredentials() {
-    this.loginForm.patchValue({
-      email: 'admin@caremonitor.com',
-      password: 'password123'
-    });
-  }
-
-  get email() { return this.loginForm.get('email'); }
-  get password() { return this.loginForm.get('password'); }
 }
