@@ -58,27 +58,4 @@ button {
   margin: 20px 0;
 }
 
-.demo-section {
-  margin-top: 24px;
-  padding: 16px;
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  border-left: 4px solid #673ab7;
-
-  .demo-text {
-    margin: 0 0 8px 0;
-    font-weight: 500;
-    color: #673ab7;
-  }
-
-  .demo-credentials {
-    margin: 0 0 16px 0;
-    font-size: 14px;
-    line-height: 1.5;
-    color: rgba(0, 0, 0, 0.7);
-  }
-
-  button {
-    margin-top: 0;
-  }
-}
+// Removed demo-section styles as they seem unnecessary
